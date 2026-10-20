@@ -1,0 +1,35 @@
+name: Glimpse
+options:
+  bundleIdPrefix: com.glimpse
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  Glimpse:
+    type: application
+    platform: macOS
+    sources:
+      - path: Glimpse
+    info:
+      path: Glimpse/Resources/Info.plist
+      properties:
+        CFBundleName: Glimpse
+        CFBundleDisplayName: Glimpse
+        LSUIElement: true
+        LSMinimumSystemVersion: "14.0"
+        NSScreenCaptureUsageDescription: Glimpse needs screen recording access to capture screenshots.
+    entitlements:
+      path: Glimpse/Resources/Glimpse.entitlements
+      properties:
+        com.apple.security.app-sandbox: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.glimpse.app
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_STYLE: Automatic
+        ENABLE_HARDENED_RUNTIME: true
