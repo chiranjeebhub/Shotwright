@@ -50,6 +50,14 @@ In Xcode, pick your team under *Signing & Capabilities* (a free personal team wo
 
 On first launch macOS asks for **Screen & System Audio Recording** permission. Grant it in System Settings, then quit and reopen Shotwright. The app runs from the menu bar (no Dock icon) and shows in the Dock only while an editor window is open.
 
+To build, sign, install to `/Applications` and relaunch in one step:
+
+```sh
+scripts/install.sh
+```
+
+It signs with your Apple Development certificate (or a self-signed "Shotwright Local Signing" certificate it creates once). Always install this way rather than with an unsigned build: macOS ties the Screen Recording permission to the code signature, and an unsigned build gets a new one on every rebuild, which makes macOS ask for the permission again even while it is switched on.
+
 Command-line build (this is also how changes are verified; there is no CI):
 
 ```sh
