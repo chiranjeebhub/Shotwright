@@ -63,8 +63,8 @@ final class CaptureCoordinator {
                     return
                 }
             }
-            let controller = SelectionController(mode: mode, windows: windows, frozen: frozen) { [weak self] result in
-                guard let self else { return }
+            let controller = SelectionController(mode: mode, windows: windows, frozen: frozen) { result in
+                // The coordinator is a long-lived singleton, so a strong capture is fine.
                 self.selection = nil
                 guard let result else { return }
                 if purpose == .recording {

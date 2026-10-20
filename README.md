@@ -48,7 +48,7 @@ In Xcode, pick your team under *Signing & Capabilities* (a free personal team wo
 
 On first launch macOS asks for **Screen & System Audio Recording** permission. Grant it in System Settings, then quit and reopen Glimpse. The app runs from the menu bar (no Dock icon) and shows in the Dock only while an editor window is open.
 
-Command-line build:
+Command-line build (this is also how changes are verified; there is no CI):
 
 ```sh
 xcodegen generate
