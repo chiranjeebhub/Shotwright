@@ -5,7 +5,7 @@ struct ShotwrightApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     var body: some Scene {
-        MenuBarExtra("Shotwright", systemImage: "camera.viewfinder") {
+        MenuBarExtra("Shotwright", image: "MenuBarIcon") {
             MenuBarView()
         }
         .menuBarExtraStyle(.window)
