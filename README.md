@@ -9,6 +9,7 @@ Requires **macOS 14 Sonoma or later** and **Xcode 15 or later**.
 | | |
 |---|---|
 | **Capture** | Area (with frozen screen, magnifier loupe, size badge, ⇧ square, ⌥ from center), window (Space to toggle, clean capture without overlapping windows), fullscreen, previous area |
+| **Scrolling capture** | Select an area or window (Space), then scroll: frames are stitched into one tall image, with sticky headers and footers kept once. Live preview beside the area, Return to finish, Esc to cancel |
 | **Capture text (OCR)** | Select an area and the recognised text goes to the clipboard (on-device Vision) |
 | **Quick Access overlay** | Thumbnails stack bottom-left. Hover for Copy / Save, Close, Pin, Annotate. Double-click to annotate, drag into any app, right-click for more |
 | **Pin to screen** | Keeps a capture floating above everything. Drag to move, scroll to resize, double-click or Esc to close |
@@ -25,12 +26,13 @@ Requires **macOS 14 Sonoma or later** and **Xcode 15 or later**.
 | Capture Fullscreen | ⌥⇧3 |
 | Capture Previous Area | ⌥⇧6 |
 | Capture Text (OCR) | ⌥⇧2 |
+| Scrolling Capture | ⌥⇧8 |
 
 They use ⌥⇧ so they don't clash with macOS's built-in ⌘⇧3/4/5.
 
 ### Planned
 
-Scrolling capture, screen recording / GIF, cloud upload with share links, custom shortcuts, capture history window.
+Screen recording / GIF, cloud upload with share links, custom shortcuts, capture history window.
 
 ## Build and run
 
@@ -61,6 +63,7 @@ Glimpse/
   Capture/    Capture model and ScreenCaptureKit wrapper
   Overlay/    Area/window selection overlay, Quick Access thumbnails, pinned images
   Editor/     Annotation model, renderer, editor model/view/window
+  ScrollingCapture/  Scrolling capture session, HUD and frame stitcher
   Services/   Hotkeys (Carbon), permissions, settings, clipboard, export, OCR, sound, toast
   Settings/   Settings window
 ```
