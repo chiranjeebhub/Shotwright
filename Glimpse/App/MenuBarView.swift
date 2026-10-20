@@ -4,6 +4,7 @@ import SwiftUI
 /// icons, shortcuts and a strip of recent captures, while still looking like a native menu.
 struct MenuBarView: View {
     @ObservedObject private var history = CaptureHistory.shared
+    @ObservedObject private var recorder = RecordingCoordinator.shared
     @Environment(\.openSettings) private var openSettings
 
     var body: some View {
@@ -15,7 +16,11 @@ struct MenuBarView: View {
             MenuDivider()
             MenuRow("Capture Text (OCR)", symbol: "text.viewfinder", shortcut: "⌥⇧2") { run { $0.captureText() } }
             MenuRow("Scrolling Capture", symbol: "arrow.down.to.line.compact", shortcut: "⌥⇧8") { run { $0.captureScrolling() } }
-            MenuRow("Record Screen / GIF", symbol: "record.circle", shortcut: "Later", isEnabled: false) {}
+            if recorder.isRecording {
+                MenuRow("Stop Recording", symbol: "stop.circle", shortcut: "⌥⇧7") { run { _ in RecordingCoordinator.shared.stop() } }
+            } else {
+                MenuRow("Record Screen / GIF", symbol: "record.circle", shortcut: "⌥⇧7") { run { _ in RecordingCoordinator.shared.toggle() } }
+            }
 
             if !history.items.isEmpty {
                 MenuDivider()

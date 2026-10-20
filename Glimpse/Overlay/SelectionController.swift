@@ -14,6 +14,8 @@ final class SelectionController {
     enum Mode { case area, window }
 
     private(set) var mode: Mode
+    /// A click without dragging picks the whole screen (used for recording).
+    var clickSelectsScreen = false
     private let windows: [SCWindow]
     private let frozen: [CGDirectDisplayID: Capture]
     private let completion: (SelectionResult?) -> Void

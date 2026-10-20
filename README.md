@@ -12,6 +12,7 @@ Requires **macOS 14 Sonoma or later** and **Xcode 15 or later**.
 | **Scrolling capture** | Select an area or window (Space), then scroll: frames are stitched into one tall image, with sticky headers and footers kept once. Live preview beside the area, Return to finish, Esc to cancel |
 | **Capture text (OCR)** | Select an area and the recognised text goes to the clipboard (on-device Vision) |
 | **Quick Access overlay** | Thumbnails stack bottom-left. Hover for Copy / Save, Close, Pin, Annotate. Double-click to annotate, drag into any app, right-click for more |
+| **Record screen / GIF** | Drag an area, click for full screen, or Space for a window. A bar under the area picks MP4 or GIF and cursor on/off, then shows a timer with Pause, Stop and Discard. Finished recordings land in Quick Access: Copy (the file, or GIF data), Save, Play, drag into any app |
 | **Pin to screen** | Keeps a capture floating above everything. Drag to move, scroll to resize, double-click or Esc to close |
 | **Annotation editor** | Select/move, crop, arrow, rectangle, ellipse, line, pen, highlighter, text, numbered counters, pixelate. Colours, size, undo/redo, zoom, Copy / Save / Save As |
 | **Menu bar menu** | All actions with icons and shortcuts, plus your recent captures |
@@ -26,13 +27,14 @@ Requires **macOS 14 Sonoma or later** and **Xcode 15 or later**.
 | Capture Fullscreen | ⌥⇧3 |
 | Capture Previous Area | ⌥⇧6 |
 | Capture Text (OCR) | ⌥⇧2 |
+| Record Screen / GIF (again to stop) | ⌥⇧7 |
 | Scrolling Capture | ⌥⇧8 |
 
 They use ⌥⇧ so they don't clash with macOS's built-in ⌘⇧3/4/5.
 
 ### Planned
 
-Screen recording / GIF, cloud upload with share links, custom shortcuts, capture history window.
+Audio in recordings, auto-scroll for scrolling capture, cloud upload with share links, custom shortcuts, capture history window.
 
 ## Build and run
 
@@ -62,6 +64,7 @@ Glimpse/
   App/        App entry, menu bar dropdown, CaptureCoordinator (routes every capture)
   Capture/    Capture model and ScreenCaptureKit wrapper
   Overlay/    Area/window selection overlay, Quick Access thumbnails, pinned images
+  Recording/  Screen recorder (SCStream + AVAssetWriter), GIF export, recording bar and result card
   Editor/     Annotation model, renderer, editor model/view/window
   ScrollingCapture/  Scrolling capture session, HUD and frame stitcher
   Services/   Hotkeys (Carbon), permissions, settings, clipboard, export, OCR, sound, toast
