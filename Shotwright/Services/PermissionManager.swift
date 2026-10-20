@@ -8,8 +8,8 @@ enum PermissionManager {
         CGRequestScreenCaptureAccess()
 
         let alert = NSAlert()
-        alert.messageText = "Glimpse needs Screen Recording access"
-        alert.informativeText = "Turn on Glimpse in System Settings › Privacy & Security › Screen & System Audio Recording, then quit and reopen Glimpse."
+        alert.messageText = "Shotwright needs Screen Recording access"
+        alert.informativeText = "Turn on Shotwright in System Settings › Privacy & Security › Screen & System Audio Recording, then quit and reopen Shotwright."
         alert.addButton(withTitle: "Open System Settings")
         alert.addButton(withTitle: "Cancel")
         NSApp.activate(ignoringOtherApps: true)

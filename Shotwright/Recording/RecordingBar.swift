@@ -3,7 +3,7 @@ import SwiftUI
 
 /// The floating HUD under the recorded region: format and cursor options plus Record
 /// before starting, then the timer with Pause, Stop and Discard while recording.
-/// Glimpse's own windows are excluded from the stream, so it never shows in the video.
+/// Shotwright's own windows are excluded from the stream, so it never shows in the video.
 final class RecordingBarPanel: NSPanel {
     @MainActor
     init(coordinator: RecordingCoordinator) {

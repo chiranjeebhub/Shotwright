@@ -22,7 +22,7 @@ final class HotkeyManager {
         if status == noErr, let ref {
             hotKeyRefs.append(ref)
         } else {
-            NSLog("Glimpse: couldn't register hotkey \(keyCode) (status \(status)); it may be taken by another app.")
+            NSLog("Shotwright: couldn't register hotkey \(keyCode) (status \(status)); it may be taken by another app.")
         }
     }
 

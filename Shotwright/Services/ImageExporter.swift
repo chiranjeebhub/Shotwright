@@ -30,7 +30,7 @@ enum ImageExporter {
     static func filename(for date: Date, format: ImageFormat = AppSettings.fileFormat) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd 'at' HH.mm.ss"
-        return "Glimpse \(formatter.string(from: date)).\(format.fileExtension)"
+        return "Shotwright \(formatter.string(from: date)).\(format.fileExtension)"
     }
 
     /// Saves to the configured folder and returns the file's URL.

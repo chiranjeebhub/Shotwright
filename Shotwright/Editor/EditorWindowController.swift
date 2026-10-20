@@ -29,7 +29,7 @@ final class EditorWindowController: NSWindowController, NSWindowDelegate {
             backing: .buffered,
             defer: false
         )
-        window.title = "Glimpse — Annotate"
+        window.title = "Shotwright — Annotate"
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
         // An empty unified toolbar makes the title bar tall enough to hold our tool row.

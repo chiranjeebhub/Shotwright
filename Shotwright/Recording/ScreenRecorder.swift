@@ -27,7 +27,7 @@ final class ScreenRecorder: NSObject, SCStreamOutput, SCStreamDelegate, @uncheck
     private let writer: AVAssetWriter
     private let input: AVAssetWriterInput
     private let adaptor: AVAssetWriterInputPixelBufferAdaptor
-    private let queue = DispatchQueue(label: "com.glimpse.recorder")
+    private let queue = DispatchQueue(label: "com.shotwright.recorder")
     private var stream: SCStream?
 
     // Only touched on `queue`.

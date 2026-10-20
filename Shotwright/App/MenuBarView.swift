@@ -60,7 +60,7 @@ struct MenuBarView: View {
                 NSApp.activate(ignoringOtherApps: true)
                 openSettings()
             }
-            MenuRow("Quit Glimpse", symbol: "power", shortcut: "⌘Q") { NSApp.terminate(nil) }
+            MenuRow("Quit Shotwright", symbol: "power", shortcut: "⌘Q") { NSApp.terminate(nil) }
         }
         .padding(5)
         .frame(width: 300)

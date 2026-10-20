@@ -1,4 +1,4 @@
-# Glimpse
+# Shotwright
 
 A native macOS screenshot app in the spirit of CleanShot X. It lives in the menu bar and covers the everyday flow: capture, a floating thumbnail, a quick annotation, then share.
 
@@ -43,24 +43,24 @@ The Xcode project is generated from `project.yml` with [XcodeGen](https://github
 ```sh
 brew install xcodegen
 xcodegen generate
-open Glimpse.xcodeproj
+open Shotwright.xcodeproj
 ```
 
 In Xcode, pick your team under *Signing & Capabilities* (a free personal team works), then ⌘R.
 
-On first launch macOS asks for **Screen & System Audio Recording** permission. Grant it in System Settings, then quit and reopen Glimpse. The app runs from the menu bar (no Dock icon) and shows in the Dock only while an editor window is open.
+On first launch macOS asks for **Screen & System Audio Recording** permission. Grant it in System Settings, then quit and reopen Shotwright. The app runs from the menu bar (no Dock icon) and shows in the Dock only while an editor window is open.
 
 Command-line build (this is also how changes are verified; there is no CI):
 
 ```sh
 xcodegen generate
-xcodebuild -project Glimpse.xcodeproj -scheme Glimpse -configuration Debug build
+xcodebuild -project Shotwright.xcodeproj -scheme Shotwright -configuration Debug build
 ```
 
 ## Code layout
 
 ```
-Glimpse/
+Shotwright/
   App/        App entry, menu bar dropdown, CaptureCoordinator (routes every capture)
   Capture/    Capture model and ScreenCaptureKit wrapper
   Overlay/    Area/window selection overlay, Quick Access thumbnails, pinned images

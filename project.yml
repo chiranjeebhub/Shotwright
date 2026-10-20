@@ -1,6 +1,6 @@
-name: Glimpse
+name: Shotwright
 options:
-  bundleIdPrefix: com.glimpse
+  bundleIdPrefix: com.shotwright
   deploymentTarget:
     macOS: "14.0"
   createIntermediateGroups: true
@@ -10,26 +10,26 @@ settings:
     MARKETING_VERSION: "0.1.0"
     CURRENT_PROJECT_VERSION: "1"
 targets:
-  Glimpse:
+  Shotwright:
     type: application
     platform: macOS
     sources:
-      - path: Glimpse
+      - path: Shotwright
     info:
-      path: Glimpse/Resources/Info.plist
+      path: Shotwright/Resources/Info.plist
       properties:
-        CFBundleName: Glimpse
-        CFBundleDisplayName: Glimpse
+        CFBundleName: Shotwright
+        CFBundleDisplayName: Shotwright
         LSUIElement: true
         LSMinimumSystemVersion: "14.0"
-        NSScreenCaptureUsageDescription: Glimpse needs screen recording access to capture screenshots.
+        NSScreenCaptureUsageDescription: Shotwright needs screen recording access to capture screenshots.
     entitlements:
-      path: Glimpse/Resources/Glimpse.entitlements
+      path: Shotwright/Resources/Shotwright.entitlements
       properties:
         com.apple.security.app-sandbox: false
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.glimpse.app
+        PRODUCT_BUNDLE_IDENTIFIER: com.shotwright.app
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         CODE_SIGN_STYLE: Automatic
         ENABLE_HARDENED_RUNTIME: true

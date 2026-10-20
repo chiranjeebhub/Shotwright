@@ -195,7 +195,7 @@ private final class ScrollingCaptureBorderView: NSView {
 
 extension CaptureService {
     /// A filter and configuration for grabbing `rect` (screen-local AppKit coordinates)
-    /// over and over, without the cursor or Glimpse's own windows.
+    /// over and over, without the cursor or Shotwright's own windows.
     @MainActor
     static func repeatingSource(for rect: CGRect, on screen: NSScreen) async throws -> (filter: SCContentFilter, configuration: SCStreamConfiguration, scale: CGFloat) {
         let content = try await SCShareableContent.excludingDesktopWindows(false, onScreenWindowsOnly: true)

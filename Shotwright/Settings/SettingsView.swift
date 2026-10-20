@@ -53,7 +53,7 @@ private struct GeneralSettings: View {
             }
 
             Section {
-                Toggle("Start Glimpse at login", isOn: $launchAtLogin)
+                Toggle("Start Shotwright at login", isOn: $launchAtLogin)
                     .onChange(of: launchAtLogin) { _, enabled in setLaunchAtLogin(enabled) }
                 Toggle("Include cursor in screenshots", isOn: $includeCursor)
             }

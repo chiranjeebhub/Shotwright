@@ -53,7 +53,7 @@ final class Recording: ObservableObject, Identifiable {
     nonisolated static func filename(for date: Date, format: RecordingFormat) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd 'at' HH.mm.ss"
-        return "Glimpse Recording \(formatter.string(from: date)).\(format.fileExtension)"
+        return "Shotwright Recording \(formatter.string(from: date)).\(format.fileExtension)"
     }
 
     /// Moves the file into the screenshots folder.
@@ -100,7 +100,7 @@ enum RecordingExporter {
     /// A fresh temp folder per recording, so the file keeps its final name for drag and drop.
     static func temporaryURL(for date: Date, format: RecordingFormat) throws -> URL {
         let folder = FileManager.default.temporaryDirectory
-            .appendingPathComponent("Glimpse Recordings", isDirectory: true)
+            .appendingPathComponent("Shotwright Recordings", isDirectory: true)
             .appendingPathComponent(UUID().uuidString, isDirectory: true)
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         return folder.appendingPathComponent(Recording.filename(for: date, format: format))
