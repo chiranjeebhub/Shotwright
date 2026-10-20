@@ -15,7 +15,7 @@ struct MenuBarView: View {
             MenuRow("Capture Previous Area", symbol: "arrow.counterclockwise", shortcut: "⌥⇧6") { run { $0.capturePreviousArea() } }
             MenuDivider()
             MenuRow("Capture Text (OCR)", symbol: "text.viewfinder", shortcut: "⌥⇧2") { run { $0.captureText() } }
-            MenuRow("Scrolling Capture", symbol: "arrow.down.to.line.compact", shortcut: "Later", isEnabled: false) {}
+            MenuRow("Scrolling Capture", symbol: "arrow.down.to.line.compact", shortcut: "⌥⇧8") { run { $0.captureScrolling() } }
             if recorder.isRecording {
                 MenuRow("Stop Recording", symbol: "stop.circle", shortcut: "⌥⇧7") { run { _ in RecordingCoordinator.shared.stop() } }
             } else {
