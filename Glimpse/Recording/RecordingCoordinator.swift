@@ -82,7 +82,7 @@ final class RecordingCoordinator: ObservableObject {
         Task {
             do {
                 let recorder = try await makeRecorder(for: target)
-                recorder.onStop = { [weak self] _ in self?.stop() }
+                recorder.onStop = { _ in RecordingCoordinator.shared.stop() }
                 try await recorder.start()
                 self.recorder = recorder
                 startDate = Date()
