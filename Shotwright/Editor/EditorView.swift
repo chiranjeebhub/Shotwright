@@ -13,7 +13,6 @@ struct EditorView: View {
             Divider()
             bottomBar
         }
-        .ignoresSafeArea(.container, edges: .top)
         .frame(minWidth: 760, minHeight: 480)
         .background(hiddenShortcuts)
     }
@@ -208,9 +207,8 @@ private struct EditorToolbar: View {
                 .help("Redo")
         }
         .buttonStyle(.borderless)
-        .padding(.leading, 84) // clear the traffic lights
-        .padding(.trailing, 14)
-        .frame(height: 52)
+        .padding(.horizontal, 14)
+        .frame(height: 44)
         .background(Color(nsColor: .windowBackgroundColor))
     }
 }

@@ -25,16 +25,15 @@ final class EditorWindowController: NSWindowController, NSWindowDelegate {
         model = EditorModel(capture: capture)
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 1200, height: 760),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
+            styleMask: [.titled, .closable, .miniaturizable, .resizable],
             backing: .buffered,
             defer: false
         )
         window.title = "Shotwright — Annotate"
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
-        // An empty unified toolbar makes the title bar tall enough to hold our tool row.
-        window.toolbar = NSToolbar()
-        window.toolbarStyle = .unified
+        // The tool row sits directly below the (transparent) title bar. Drawing it under a
+        // full-size-content title bar hid it behind the titlebar/toolbar layer on recent macOS.
         window.isReleasedWhenClosed = false
         super.init(window: window)
 
