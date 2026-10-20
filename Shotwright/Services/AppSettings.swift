@@ -34,13 +34,6 @@ enum AppSettings {
         defaults.object(forKey: key) as? Bool ?? value
     }
 
-    static var saveDirectory: URL {
-        if let path = defaults.string(forKey: SettingsKey.saveDirectory), !path.isEmpty {
-            return URL(fileURLWithPath: path, isDirectory: true)
-        }
-        return FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)[0]
-    }
-
     static var fileFormat: ImageFormat {
         ImageFormat(rawValue: defaults.string(forKey: SettingsKey.fileFormat) ?? "") ?? .png
     }

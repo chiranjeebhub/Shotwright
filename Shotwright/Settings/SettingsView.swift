@@ -63,18 +63,13 @@ private struct GeneralSettings: View {
     }
 
     private var displayPath: String {
-        (AppSettings.saveDirectory.path as NSString).abbreviatingWithTildeInPath
+        // Reads `saveDirectory` so the label refreshes when SaveFolder stores a new pick.
+        _ = saveDirectory
+        return (SaveFolder.url.path as NSString).abbreviatingWithTildeInPath
     }
 
     private func chooseFolder() {
-        let panel = NSOpenPanel()
-        panel.canChooseDirectories = true
-        panel.canChooseFiles = false
-        panel.canCreateDirectories = true
-        panel.directoryURL = AppSettings.saveDirectory
-        if panel.runModal() == .OK, let url = panel.url {
-            saveDirectory = url.path
-        }
+        SaveFolder.choose()
     }
 
     private func setLaunchAtLogin(_ enabled: Bool) {

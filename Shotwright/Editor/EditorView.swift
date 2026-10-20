@@ -144,7 +144,7 @@ struct EditorView: View {
         let panel = NSSavePanel()
         panel.allowedContentTypes = [.png, .jpeg, .heic]
         panel.nameFieldStringValue = ImageExporter.filename(for: model.capture.date)
-        panel.directoryURL = AppSettings.saveDirectory
+        panel.directoryURL = SaveFolder.url
         guard panel.runModal() == .OK, let url = panel.url else { return }
         do {
             try ImageExporter.write(model.capture, to: url)

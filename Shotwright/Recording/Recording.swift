@@ -60,7 +60,7 @@ final class Recording: ObservableObject, Identifiable {
     @discardableResult
     func save() throws -> URL {
         if let savedURL { return savedURL }
-        let folder = AppSettings.saveDirectory
+        let folder = try SaveFolder.writableURL()
         var destination = folder.appendingPathComponent(url.lastPathComponent)
         var counter = 2
         while FileManager.default.fileExists(atPath: destination.path) {

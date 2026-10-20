@@ -37,7 +37,7 @@ enum ImageExporter {
     @MainActor
     @discardableResult
     static func save(_ capture: Capture) throws -> URL {
-        let url = AppSettings.saveDirectory.appendingPathComponent(filename(for: capture.date))
+        let url = try SaveFolder.writableURL().appendingPathComponent(filename(for: capture.date))
         try write(capture, to: url)
         capture.savedURL = url
         return url

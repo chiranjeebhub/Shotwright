@@ -53,7 +53,7 @@ struct MenuBarView: View {
             MenuDivider()
             MenuRow("Open Screenshots Folder", symbol: "folder") {
                 closeMenu()
-                NSWorkspace.shared.open(AppSettings.saveDirectory)
+                SaveFolder.reveal()
             }
             MenuRow("Settings…", symbol: "gearshape", shortcut: "⌘,") {
                 closeMenu()

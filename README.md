@@ -80,3 +80,16 @@ Shotwright/
 ```
 
 Built with Swift, SwiftUI + AppKit, ScreenCaptureKit (`SCScreenshotManager`), Vision and Core Image.
+
+## Mac App Store
+
+Shotwright runs in the App Sandbox so it can ship on the Mac App Store. Because a sandboxed app can only write where you've pointed it, the first save asks which folder to use (Desktop preselected) and remembers it as a security-scoped bookmark.
+
+To archive and upload a build (needs a paid Apple Developer Program team and the App Store Connect app record for `com.shotwright.app`):
+
+```sh
+SHOTWRIGHT_TEAM_ID=XXXXXXXXXX scripts/release-appstore.sh            # export build/AppStore/Shotwright.pkg
+SHOTWRIGHT_TEAM_ID=XXXXXXXXXX scripts/release-appstore.sh --upload   # upload to App Store Connect
+```
+
+The store version is `MARKETING_VERSION` in `project.yml`; the build number is the UTC time of the archive.

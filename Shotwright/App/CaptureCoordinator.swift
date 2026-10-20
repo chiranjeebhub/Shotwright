@@ -155,6 +155,7 @@ final class CaptureCoordinator {
     }
 
     func present(_ error: Error) {
+        if (error as? CocoaError)?.code == .userCancelled { return }
         NSApp.activate(ignoringOtherApps: true)
         NSAlert(error: error).runModal()
     }
