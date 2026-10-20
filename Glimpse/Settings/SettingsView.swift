@@ -93,6 +93,7 @@ private struct ShortcutSettings: View {
         ("Capture Fullscreen", "⌥⇧3"),
         ("Capture Previous Area", "⌥⇧6"),
         ("Capture Text (OCR)", "⌥⇧2"),
+        ("Record Screen / GIF", "⌥⇧7"),
     ]
 
     var body: some View {

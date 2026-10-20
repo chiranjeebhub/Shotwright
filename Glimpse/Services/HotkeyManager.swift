@@ -62,5 +62,6 @@ extension HotkeyManager {
         register(keyCode: kVK_ANSI_3, modifiers: mods) { CaptureCoordinator.shared.captureFullscreen() }
         register(keyCode: kVK_ANSI_6, modifiers: mods) { CaptureCoordinator.shared.capturePreviousArea() }
         register(keyCode: kVK_ANSI_2, modifiers: mods) { CaptureCoordinator.shared.captureText() }
+        register(keyCode: kVK_ANSI_7, modifiers: mods) { RecordingCoordinator.shared.toggle() }
     }
 }

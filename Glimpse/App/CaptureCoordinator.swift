@@ -6,7 +6,7 @@ import ScreenCaptureKit
 final class CaptureCoordinator {
     static let shared = CaptureCoordinator()
 
-    enum Purpose { case screenshot, ocr }
+    enum Purpose { case screenshot, ocr, recording }
 
     private var selection: SelectionController?
     private var isPreparingSelection = false
@@ -15,6 +15,8 @@ final class CaptureCoordinator {
     func captureArea() { startSelection(mode: .area, purpose: .screenshot) }
     func captureWindow() { startSelection(mode: .window, purpose: .screenshot) }
     func captureText() { startSelection(mode: .area, purpose: .ocr) }
+    /// Picks an area, window or (with a click) whole screen to record.
+    func selectRecordingTarget() { startSelection(mode: .area, purpose: .recording) }
 
     func captureFullscreen() {
         guard PermissionManager.ensureScreenCapture() else { return }
@@ -65,8 +67,13 @@ final class CaptureCoordinator {
                 guard let self else { return }
                 self.selection = nil
                 guard let result else { return }
+                if purpose == .recording {
+                    RecordingCoordinator.shared.prepare(result)
+                    return
+                }
                 Task { await self.performCapture(result, purpose: purpose) }
             }
+            controller.clickSelectsScreen = purpose == .recording
             selection = controller
             controller.begin()
         }
@@ -104,6 +111,8 @@ final class CaptureCoordinator {
                     present(error)
                 }
             }
+        case .recording:
+            break
         case .screenshot:
             CaptureHistory.shared.add(capture)
             if AppSettings.playSound { SoundPlayer.playShutter() }

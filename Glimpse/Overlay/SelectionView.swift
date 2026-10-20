@@ -52,6 +52,10 @@ final class SelectionView: NSView {
     override func mouseUp(with event: NSEvent) {
         defer { dragStart = nil }
         guard let selection = selection?.integral, selection.width >= 4, selection.height >= 4 else {
+            if controller.clickSelectsScreen, controller.mode == .area {
+                controller.finishArea(bounds, on: screen)
+                return
+            }
             self.selection = nil
             needsDisplay = true
             return
@@ -197,8 +201,10 @@ final class SelectionView: NSView {
 
     private func drawHintBar() {
         let items: [(String, String)] = controller.mode == .area
-            ? [("Drag", "to select"), ("Space", "window mode"), ("⇧", "square"), ("⌥", "from center"), ("Esc", "cancel")]
-            : [("Click", "to capture window"), ("Space", "area mode"), ("Esc", "cancel")]
+            ? controller.clickSelectsScreen
+                ? [("Drag", "to record an area"), ("Click", "full screen"), ("Space", "window mode"), ("Esc", "cancel")]
+                : [("Drag", "to select"), ("Space", "window mode"), ("⇧", "square"), ("⌥", "from center"), ("Esc", "cancel")]
+            : [("Click", controller.clickSelectsScreen ? "to record window" : "to capture window"), ("Space", "area mode"), ("Esc", "cancel")]
         let bold: [NSAttributedString.Key: Any] = [.font: NSFont.systemFont(ofSize: 12, weight: .bold), .foregroundColor: NSColor.white]
         let regular: [NSAttributedString.Key: Any] = [.font: NSFont.systemFont(ofSize: 12), .foregroundColor: NSColor.white]
         let text = NSMutableAttributedString()

@@ -91,7 +91,7 @@ struct QuickAccessCard: View {
     }
 }
 
-private struct PillButton: View {
+struct PillButton: View {
     let title: String
     let action: () -> Void
 
@@ -107,7 +107,7 @@ private struct PillButton: View {
     }
 }
 
-private struct CornerButton: View {
+struct CornerButton: View {
     let symbol: String
     let label: String
     let action: () -> Void

@@ -15,7 +15,14 @@ final class QuickAccessManager {
     private var panels: [QuickAccessPanel] = []
 
     func show(_ capture: Capture) {
-        let panel = QuickAccessPanel(capture: capture, inset: Self.inset)
+        present(QuickAccessPanel(item: capture, content: QuickAccessCard(capture: capture), inset: Self.inset))
+    }
+
+    func show(_ recording: Recording) {
+        present(QuickAccessPanel(item: recording, content: RecordingCard(recording: recording), inset: Self.inset))
+    }
+
+    private func present(_ panel: QuickAccessPanel) {
         panels.append(panel)
         layout()
         panel.alphaValue = 0
@@ -23,8 +30,9 @@ final class QuickAccessManager {
         NSAnimationContext.runAnimationGroup { $0.duration = 0.18; panel.animator().alphaValue = 1 }
     }
 
-    func dismiss(_ capture: Capture) {
-        guard let index = panels.firstIndex(where: { $0.capture === capture }) else { return }
+    /// Removes the card for a capture or recording.
+    func dismiss(_ item: AnyObject) {
+        guard let index = panels.firstIndex(where: { $0.item === item }) else { return }
         let panel = panels.remove(at: index)
         panel.orderOut(nil)
         layout()
@@ -42,11 +50,12 @@ final class QuickAccessManager {
 }
 
 final class QuickAccessPanel: NSPanel {
-    let capture: Capture
+    /// The capture or recording the card shows.
+    let item: AnyObject
 
     @MainActor
-    init(capture: Capture, inset: CGFloat) {
-        self.capture = capture
+    init<Content: View>(item: AnyObject, content: Content, inset: CGFloat) {
+        self.item = item
         let size = CGSize(width: QuickAccessManager.cardSize.width + inset * 2, height: QuickAccessManager.cardSize.height + inset * 2)
         super.init(contentRect: NSRect(origin: .zero, size: size), styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)
         isOpaque = false
@@ -56,7 +65,7 @@ final class QuickAccessPanel: NSPanel {
         isFloatingPanel = true
         hidesOnDeactivate = false
         collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
-        contentView = NSHostingView(rootView: QuickAccessCard(capture: capture).padding(inset))
+        contentView = NSHostingView(rootView: content.padding(inset))
     }
 
     override var canBecomeKey: Bool { false }
