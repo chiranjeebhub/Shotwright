@@ -81,15 +81,34 @@ Shotwright/
 
 Built with Swift, SwiftUI + AppKit, ScreenCaptureKit (`SCScreenshotManager`), Vision and Core Image.
 
-## Mac App Store
+## Releasing
 
-Shotwright runs in the App Sandbox so it can ship on the Mac App Store. Because a sandboxed app can only write where you've pointed it, the first save asks which folder to use (Desktop preselected) and remembers it as a security-scoped bookmark.
+`project.yml` defines two builds of the same app (bundle ID `com.shotwright.app`):
 
-To archive and upload a build (needs a paid Apple Developer Program team and the App Store Connect app record for `com.shotwright.app`):
+| Scheme | For | Differences |
+|---|---|---|
+| `Shotwright` | Direct download (DMG) and `scripts/install.sh` | Not sandboxed, updates itself with [Sparkle](https://sparkle-project.org) |
+| `Shotwright-AppStore` | Mac App Store | App Sandbox, no Sparkle |
+
+In the sandboxed build the first save asks which folder to use (Desktop preselected) and remembers it as a security-scoped bookmark.
+
+Both need a paid Apple Developer Program team; pass its Team ID as `SHOTWRIGHT_TEAM_ID`. Bump `MARKETING_VERSION` in `project.yml` for each release; the build number is the UTC time of the archive.
+
+### Direct download
+
+```sh
+SHOTWRIGHT_TEAM_ID=XXXXXXXXXX scripts/release-direct.sh
+```
+
+Archives with your Developer ID Application certificate, notarizes and staples the app and the DMG, writes `dist/Shotwright-<version>.dmg`, and adds an entry to `appcast.xml`. Publish by attaching the DMG to a GitHub release tagged `v<version>` and pushing `appcast.xml`; installed copies read the feed from `main`.
+
+One-time setup: a Developer ID Application certificate (Xcode > Settings > Accounts > Manage Certificates), notarization credentials (`xcrun notarytool store-credentials shotwright-notary --apple-id <you> --team-id <team>`), and a Sparkle key (`generate_keys` from the Sparkle package; the public key goes in `SPARKLE_PUBLIC_KEY` in `project.yml`, the private key stays in your keychain).
+
+### Mac App Store
 
 ```sh
 SHOTWRIGHT_TEAM_ID=XXXXXXXXXX scripts/release-appstore.sh            # export build/AppStore/Shotwright.pkg
 SHOTWRIGHT_TEAM_ID=XXXXXXXXXX scripts/release-appstore.sh --upload   # upload to App Store Connect
 ```
 
-The store version is `MARKETING_VERSION` in `project.yml`; the build number is the UTC time of the archive.
+Needs the App Store Connect app record for `com.shotwright.app`.

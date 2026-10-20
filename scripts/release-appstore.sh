@@ -15,13 +15,13 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 APP_NAME=Shotwright
+SCHEME=Shotwright-AppStore
 OUT="build/AppStore"
 ARCHIVE="$OUT/$APP_NAME.xcarchive"
 DESTINATION=export
 [ "${1:-}" = "--upload" ] && DESTINATION=upload
 
 : "${SHOTWRIGHT_TEAM_ID:?Set SHOTWRIGHT_TEAM_ID to your 10-character Team ID (developer.apple.com > Account > Membership details)}"
-export SHOTWRIGHT_TEAM_ID
 BUILD_NUMBER=$(date -u +%Y%m%d%H%M)
 
 rm -rf "$OUT"
@@ -29,7 +29,7 @@ mkdir -p "$OUT"
 xcodegen generate
 
 echo "Archiving build $BUILD_NUMBER…"
-xcodebuild archive -project "$APP_NAME.xcodeproj" -scheme "$APP_NAME" -configuration Release \
+xcodebuild archive -project "$APP_NAME.xcodeproj" -scheme "$SCHEME" -configuration Release \
     -destination 'generic/platform=macOS' -archivePath "$ARCHIVE" -allowProvisioningUpdates \
     DEVELOPMENT_TEAM="$SHOTWRIGHT_TEAM_ID" CURRENT_PROJECT_VERSION="$BUILD_NUMBER" | tail -n 3
 

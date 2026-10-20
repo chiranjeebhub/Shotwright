@@ -59,8 +59,11 @@ xcodebuild -project "$APP_NAME.xcodeproj" -scheme "$APP_NAME" -configuration Rel
     -derivedDataPath "$BUILD_DIR" CODE_SIGNING_ALLOWED=NO build | tail -n 3
 
 BUILT="$BUILD_DIR/Build/Products/Release/$APP_NAME.app"
-codesign --force --deep --options runtime --timestamp=none \
-    --entitlements "$APP_NAME/Resources/$APP_NAME.entitlements" \
+# Sign nested code (Sparkle) first, then the app with its entitlements.
+SPARKLE="$BUILT/Contents/Frameworks/Sparkle.framework"
+[ -d "$SPARKLE" ] && codesign --force --deep --options runtime --timestamp=none --sign "$IDENTITY" "$SPARKLE"
+codesign --force --options runtime --timestamp=none \
+    --entitlements "Support/$APP_NAME/$APP_NAME.entitlements" \
     --sign "$IDENTITY" "$BUILT"
 codesign --verify --strict "$BUILT"
 codesign -d -r- "$BUILT" 2>&1 | grep designated

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+    <channel>
+        <title>Shotwright</title>
+        <link>https://raw.githubusercontent.com/chiranjeebhub/Shotwright/main/appcast.xml</link>
+        <description>Shotwright updates</description>
+        <language>en</language>
+        <!-- New releases go below this line. -->
+    </channel>
+</rss>

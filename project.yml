@@ -9,36 +9,71 @@ settings:
     SWIFT_VERSION: "5.9"
     MARKETING_VERSION: "0.1.0"
     CURRENT_PROJECT_VERSION: "1"
-targets:
-  Shotwright:
+packages:
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: "2.6.4"
+
+# Two builds of the same app:
+#   Shotwright           direct download (Developer ID, notarized DMG, Sparkle updates). Used by scripts/install.sh.
+#   Shotwright-AppStore  Mac App Store (App Sandbox, no Sparkle; updates come from the store).
+targetTemplates:
+  App:
     type: application
     platform: macOS
     sources:
       - path: Shotwright
     info:
-      path: Shotwright/Resources/Info.plist
+      path: Support/${target_name}/Info.plist
       properties:
         CFBundleName: Shotwright
         CFBundleDisplayName: Shotwright
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         LSUIElement: true
         LSMinimumSystemVersion: "14.0"
         LSApplicationCategoryType: public.app-category.productivity
         NSHumanReadableCopyright: "© 2026 Chiranjeeb Jena"
         ITSAppUsesNonExemptEncryption: false
-        CFBundleShortVersionString: $(MARKETING_VERSION)
-        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         NSScreenCaptureUsageDescription: Shotwright needs screen recording access to capture screenshots and record your screen. Captures stay on your Mac.
-    entitlements:
-      path: Shotwright/Resources/Shotwright.entitlements
-      properties:
-        com.apple.security.app-sandbox: true
-        com.apple.security.files.user-selected.read-write: true
-        com.apple.security.files.bookmarks.app-scope: true
     settings:
       base:
+        PRODUCT_NAME: Shotwright
         PRODUCT_BUNDLE_IDENTIFIER: com.shotwright.app
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         CODE_SIGN_STYLE: Automatic
-        DEVELOPMENT_TEAM: ${SHOTWRIGHT_TEAM_ID}
         ENABLE_HARDENED_RUNTIME: true
+
+targets:
+  Shotwright:
+    templates: [App]
+    info:
+      path: Support/Shotwright/Info.plist
+      properties:
+        SUFeedURL: $(SPARKLE_FEED_URL)
+        SUPublicEDKey: $(SPARKLE_PUBLIC_KEY)
+        SUEnableAutomaticChecks: true
+    entitlements:
+      path: Support/Shotwright/Shotwright.entitlements
+      properties:
+        com.apple.security.app-sandbox: false
+    dependencies:
+      - package: Sparkle
+    settings:
+      base:
+        # Where the app looks for updates, and the public half of the key release builds are signed with
+        # (scripts/release-direct.sh). Updates stay off until both are set.
+        SPARKLE_FEED_URL: https://raw.githubusercontent.com/chiranjeebhub/Shotwright/main/appcast.xml
+        SPARKLE_PUBLIC_KEY: ""
+
+  Shotwright-AppStore:
+    templates: [App]
+    info:
+      path: Support/Shotwright-AppStore/Info.plist
+    entitlements:
+      path: Support/Shotwright-AppStore/Shotwright.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.files.user-selected.read-write: true
+        com.apple.security.files.bookmarks.app-scope: true
