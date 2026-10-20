@@ -50,7 +50,7 @@ final class Recording: ObservableObject, Identifiable {
         return String(format: "%d:%02d", total / 60, total % 60)
     }
 
-    static func filename(for date: Date, format: RecordingFormat) -> String {
+    nonisolated static func filename(for date: Date, format: RecordingFormat) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd 'at' HH.mm.ss"
         return "Glimpse Recording \(formatter.string(from: date)).\(format.fileExtension)"
