@@ -6,7 +6,7 @@ import ScreenCaptureKit
 final class CaptureCoordinator {
     static let shared = CaptureCoordinator()
 
-    enum Purpose { case screenshot, ocr }
+    enum Purpose { case screenshot, ocr, scrolling }
 
     private var selection: SelectionController?
     private var isPreparingSelection = false
@@ -15,6 +15,11 @@ final class CaptureCoordinator {
     func captureArea() { startSelection(mode: .area, purpose: .screenshot) }
     func captureWindow() { startSelection(mode: .window, purpose: .screenshot) }
     func captureText() { startSelection(mode: .area, purpose: .ocr) }
+
+    func captureScrolling() {
+        guard !ScrollingCaptureSession.isActive else { return }
+        startSelection(mode: .area, purpose: .scrolling)
+    }
 
     func captureFullscreen() {
         guard PermissionManager.ensureScreenCapture() else { return }
@@ -73,6 +78,10 @@ final class CaptureCoordinator {
     }
 
     private func performCapture(_ result: SelectionResult, purpose: Purpose) async {
+        if purpose == .scrolling {
+            startScrolling(result)
+            return
+        }
         do {
             let capture: Capture
             switch result {
@@ -85,6 +94,25 @@ final class CaptureCoordinator {
             handle(capture, purpose: purpose)
         } catch {
             present(error)
+        }
+    }
+
+    /// Scrolling capture needs the live screen, so the selection only picks the area.
+    private func startScrolling(_ result: SelectionResult) {
+        let rect: CGRect
+        let screen: NSScreen
+        switch result {
+        case let .area(area, areaScreen, _):
+            rect = area
+            screen = areaScreen
+        case let .window(window):
+            let global = appKitRect(fromCG: window.frame)
+            screen = NSScreen.screens.first { $0.frame.contains(CGPoint(x: global.midX, y: global.midY)) } ?? .underMouse
+            rect = global.intersection(screen.frame).offsetBy(dx: -screen.frame.minX, dy: -screen.frame.minY)
+        }
+        guard rect.width >= 4, rect.height >= 4 else { return }
+        ScrollingCaptureSession.start(rect: rect.integral, on: screen) { [weak self] capture in
+            self?.handle(capture, purpose: .scrolling)
         }
     }
 
@@ -104,7 +132,7 @@ final class CaptureCoordinator {
                     present(error)
                 }
             }
-        case .screenshot:
+        case .screenshot, .scrolling:
             CaptureHistory.shared.add(capture)
             if AppSettings.playSound { SoundPlayer.playShutter() }
             if AppSettings.copyToClipboard { Clipboard.copy(capture) }
