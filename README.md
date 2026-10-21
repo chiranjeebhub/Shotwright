@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <b>A native macOS screenshot app in the spirit of CleanShot X.</b><br>
+  <b>A native macOS app for screenshots, screen recordings and annotations.</b><br>
   Capture an area, a window or a whole scrolling page, record the screen as MP4 or GIF,<br>
   mark it up, and drop it straight into whatever you're working on.
 </p>
@@ -182,4 +182,4 @@ Needs the App Store Connect app record for `com.shotwright.app`.
 
 ## License
 
-Shotwright is released under the [MIT License](LICENSE). It is an independent project and is not affiliated with CleanShot X or its makers.
+Shotwright is released under the [MIT License](LICENSE).
