@@ -1,54 +1,109 @@
-# Shotwright
+<p align="center">
+  <img src="docs/images/social-preview.png" alt="Shotwright: screenshots, recordings and annotations for macOS" width="100%">
+</p>
 
-A native macOS screenshot app in the spirit of CleanShot X. It lives in the menu bar and covers the everyday flow: capture, a floating thumbnail, a quick annotation, then share.
+<p align="center">
+  <b>A native macOS screenshot app in the spirit of CleanShot X.</b><br>
+  Capture an area, a window or a whole scrolling page, record the screen as MP4 or GIF,<br>
+  mark it up, and drop it straight into whatever you're working on.
+</p>
 
-Requires **macOS 14 Sonoma or later** and **Xcode 15 or later**.
+<p align="center">
+  <img alt="macOS 14+" src="https://img.shields.io/badge/macOS-14%2B-blue">
+  <img alt="Swift" src="https://img.shields.io/badge/Swift-5.9-orange">
+  <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-green"></a>
+</p>
 
-## Features (v0.1)
+Shotwright lives in the menu bar. Press a shortcut, pick what to capture, and the result pops up as a thumbnail in the corner of the screen: copy it, save it, drag it into Slack or a pull request, pin it above your windows, or open it in the editor to add arrows, boxes, numbered steps and blur. Everything runs on your Mac. There is no account, no tracking, and text recognition happens on-device.
 
-| | |
-|---|---|
-| **Capture** | Area (with frozen screen, magnifier loupe, size badge, ⇧ square, ⌥ from center), window (Space to toggle, clean capture without overlapping windows), fullscreen, previous area |
-| **Scrolling capture** | Select an area or window (Space), then scroll: frames are stitched into one tall image, with sticky headers and footers kept once. Live preview beside the area, Return to finish, Esc to cancel |
-| **Capture text (OCR)** | Select an area and the recognised text goes to the clipboard (on-device Vision) |
-| **Quick Access overlay** | Thumbnails stack bottom-left. Hover for Copy / Save, Close, Pin, Annotate. Double-click to annotate, drag into any app, right-click for more |
-| **Record screen / GIF** | Drag an area, click for full screen, or Space for a window. A bar under the area picks MP4 or GIF and cursor on/off, then shows a timer with Pause, Stop and Discard. Finished recordings land in Quick Access: Copy (the file, or GIF data), Save, Play, drag into any app |
-| **Pin to screen** | Keeps a capture floating above everything. Drag to move, scroll to resize, double-click or Esc to close |
-| **Annotation editor** | Select/move, crop, arrow, rectangle, ellipse, line, pen, highlighter, text, numbered counters, pixelate. Colours, size, undo/redo, zoom, Copy / Save / Save As |
-| **Menu bar menu** | All actions with icons and shortcuts, plus your recent captures |
-| **Settings** | Save folder, PNG/JPEG/HEIC, Retina export, after-capture actions, shutter sound, start at login, cursor |
+## Screenshots
 
-### Default shortcuts
+<p align="center">
+  <img src="docs/images/editor.png" alt="The annotation editor with an arrow, a box, numbered counters, a highlight and a pixelated area" width="100%">
+  <br><sub>The annotation editor: arrows, shapes, text, numbered counters, highlighter and pixelate.</sub>
+</p>
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/images/capture-area.png" alt="Area selection with magnifier loupe and size badge"><br><sub><b>Capture Area</b> on a frozen screen, with a pixel loupe and size badge.</sub></td>
+    <td width="50%"><img src="docs/images/menu-and-quick-access.png" alt="Menu bar menu and Quick Access thumbnails"><br><sub><b>Menu bar and Quick Access</b>: every action one click away, captures stacked bottom-left.</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/images/scrolling-capture.png" alt="Scrolling capture with live preview"><br><sub><b>Scrolling Capture</b> stitches a long page into one image, with a live preview.</sub></td>
+    <td width="50%"><img src="docs/images/recording.png" alt="Screen recording bar with timer, pause, stop and discard"><br><sub><b>Record Screen / GIF</b> with a floating bar that never shows up in the video.</sub></td>
+  </tr>
+</table>
+
+## Features
+
+**Capture**
+- **Area**: the screen freezes while you drag, with a magnifier loupe, live size badge, <kbd>⇧</kbd> for a square and <kbd>⌥</kbd> to grow from the center.
+- **Window**: hover a window and click. Captures it cleanly even when other windows overlap it. <kbd>Space</kbd> switches between area and window mode.
+- **Fullscreen** and **Previous Area** (repeat the last region in one keystroke).
+- **Capture Text (OCR)**: select any part of the screen and the recognised text goes to the clipboard, using Apple's on-device Vision framework.
+- **Scrolling Capture**: select an area or window, then scroll. Frames are stitched into one tall image, keeping sticky headers and footers only once. A live preview sits beside the area; <kbd>Return</kbd> finishes, <kbd>Esc</kbd> cancels.
+
+**Record**
+- **Screen recording as MP4 or GIF**: drag an area, click for the full screen, or press <kbd>Space</kbd> for a window. A small bar picks the format and whether to show the cursor, then turns into a timer with Pause, Stop and Discard. The bar and border are excluded from the recording.
+- Finished recordings land in Quick Access, ready to copy (the file, or GIF data), save, play or drag into any app.
+
+**After the capture**
+- **Quick Access overlay**: thumbnails stack in the bottom-left corner. Hover for Copy, Save, Close, Pin and Annotate; double-click to annotate; drag a thumbnail into any app; right-click for more.
+- **Pin to screen**: float a capture above every window. Drag to move, scroll to resize, double-click or <kbd>Esc</kbd> to close.
+- **Annotation editor**: select and move, crop, arrow, rectangle, ellipse, line, pen, highlighter, text, numbered counters and pixelate. Six colours, adjustable size, undo and redo, zoom, then Copy, Save or Save As (PNG, JPEG or HEIC).
+
+**Everyday comfort**
+- A menu bar menu with every action, its shortcut, and your four most recent captures.
+- Settings for the save folder, file format (PNG, JPEG, HEIC), Retina (@2x) export, what happens after a capture (Quick Access, copy, auto-save), shutter sound, start at login and including the cursor.
+- No Dock icon. Shotwright only appears in the Dock while an editor window is open.
+
+## Keyboard shortcuts
 
 | Action | Shortcut |
 |---|---|
-| Capture Area | ⌥⇧4 |
-| Capture Window | ⌥⇧5 |
-| Capture Fullscreen | ⌥⇧3 |
-| Capture Previous Area | ⌥⇧6 |
-| Capture Text (OCR) | ⌥⇧2 |
-| Record Screen / GIF (again to stop) | ⌥⇧7 |
-| Scrolling Capture | ⌥⇧8 |
+| Capture Area | <kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>4</kbd> |
+| Capture Window | <kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>5</kbd> |
+| Capture Fullscreen | <kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>3</kbd> |
+| Capture Previous Area | <kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>6</kbd> |
+| Capture Text (OCR) | <kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>2</kbd> |
+| Record Screen / GIF (press again to stop) | <kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>7</kbd> |
+| Scrolling Capture | <kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>8</kbd> |
 
-They use ⌥⇧ so they don't clash with macOS's built-in ⌘⇧3/4/5.
+They use <kbd>⌥</kbd><kbd>⇧</kbd> so they don't clash with macOS's own <kbd>⌘</kbd><kbd>⇧</kbd><kbd>3</kbd>/<kbd>4</kbd>/<kbd>5</kbd>.
 
-### Planned
+While selecting: <kbd>Space</kbd> toggles area and window mode, <kbd>⇧</kbd> locks a square, <kbd>⌥</kbd> draws from the center, <kbd>Esc</kbd> cancels. In the editor: <kbd>⌘C</kbd> copy, <kbd>⌘S</kbd> save, <kbd>⇧⌘S</kbd> save as, <kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd> undo and redo, <kbd>⌘=</kbd> / <kbd>⌘-</kbd> / <kbd>⌘0</kbd> zoom, <kbd>⌫</kbd> deletes the selected mark.
 
-Audio in recordings, auto-scroll for scrolling capture, cloud upload with share links, custom shortcuts, capture history window.
+## Install
 
-## Build and run
+Shotwright needs **macOS 14 Sonoma or later**.
 
-The Xcode project is generated from `project.yml` with [XcodeGen](https://github.com/yonaskolb/XcodeGen), so there's no `.xcodeproj` to merge.
+- **Direct download**: signed and notarized DMGs will be published on the [Releases](https://github.com/chiranjeebhub/Shotwright/releases) page. That build updates itself with [Sparkle](https://sparkle-project.org).
+- **Mac App Store**: a sandboxed build is being prepared for the App Store.
+- **From source**: see below. This is the way to run it today.
+
+## Permissions
+
+Shotwright asks for one permission:
+
+- **Screen & System Audio Recording**, which macOS requires for any app that captures the screen. On first launch macOS shows its prompt; turn Shotwright on in *System Settings › Privacy & Security › Screen & System Audio Recording*, then quit and reopen Shotwright.
+
+It does not need Accessibility access: the global shortcuts use the Carbon hot key API, which works without it. Nothing leaves your Mac; text recognition runs on-device.
+
+If macOS keeps asking even though the switch is on, remove Shotwright from that list with the − button, add it again and reopen it. This happens when the app's code signature changes, for example with unsigned local builds (see below).
+
+## Build from source
+
+You need Xcode 15 or later and [XcodeGen](https://github.com/yonaskolb/XcodeGen). The Xcode project is generated from `project.yml`, so there is no `.xcodeproj` in the repo.
 
 ```sh
+git clone https://github.com/chiranjeebhub/Shotwright.git
+cd Shotwright
 brew install xcodegen
 xcodegen generate
 open Shotwright.xcodeproj
 ```
 
-In Xcode, pick your team under *Signing & Capabilities* (a free personal team works), then ⌘R.
-
-On first launch macOS asks for **Screen & System Audio Recording** permission. Grant it in System Settings, then quit and reopen Shotwright. The app runs from the menu bar (no Dock icon) and shows in the Dock only while an editor window is open.
+In Xcode, choose your team under *Signing & Capabilities* (a free personal team works) and press <kbd>⌘R</kbd>.
 
 To build, sign, install to `/Applications` and relaunch in one step:
 
@@ -56,14 +111,16 @@ To build, sign, install to `/Applications` and relaunch in one step:
 scripts/install.sh
 ```
 
-It signs with your Apple Development certificate (or a self-signed "Shotwright Local Signing" certificate it creates once). Always install this way rather than with an unsigned build: macOS ties the Screen Recording permission to the code signature, and an unsigned build gets a new one on every rebuild, which makes macOS ask for the permission again even while it is switched on.
+It signs with your Apple Development certificate, or a self-signed "Shotwright Local Signing" certificate it creates once. Prefer this to running an unsigned build: macOS ties the Screen Recording permission to the code signature, and an unsigned build gets a new signature on every rebuild, so macOS would ask again each time.
 
-Command-line build (this is also how changes are verified; there is no CI):
+Command-line build:
 
 ```sh
 xcodegen generate
 xcodebuild -project Shotwright.xcodeproj -scheme Shotwright -configuration Debug build
 ```
+
+Built with Swift, SwiftUI and AppKit, ScreenCaptureKit, AVFoundation, Vision and Core Image.
 
 ## Code layout
 
@@ -81,7 +138,17 @@ Shotwright/
 
 Built with Swift, SwiftUI + AppKit, ScreenCaptureKit (`SCScreenshotManager`), Vision and Core Image.
 
-## Releasing
+## Roadmap
+
+- Audio (microphone and system audio) in recordings
+- Auto-scroll for scrolling capture
+- Cloud upload with share links
+- Custom keyboard shortcuts
+- A capture history window
+
+Ideas and bug reports are welcome in [Issues](https://github.com/chiranjeebhub/Shotwright/issues).
+
+## Releasing (maintainers)
 
 `project.yml` defines two builds of the same app (bundle ID `com.shotwright.app`):
 
@@ -112,3 +179,7 @@ SHOTWRIGHT_TEAM_ID=XXXXXXXXXX scripts/release-appstore.sh --upload   # upload to
 ```
 
 Needs the App Store Connect app record for `com.shotwright.app`.
+
+## License
+
+Shotwright is released under the [MIT License](LICENSE). It is an independent project and is not affiliated with CleanShot X or its makers.
