@@ -23,6 +23,10 @@ targetTemplates:
     platform: macOS
     sources:
       - path: Shotwright
+        # Left over from before the Support/ split on older checkouts; never bundle them.
+        excludes:
+          - Resources/Info.plist
+          - Resources/*.entitlements
     info:
       path: Support/${target_name}/Info.plist
       properties:
@@ -65,7 +69,7 @@ targets:
         # Where the app looks for updates, and the public half of the key release builds are signed with
         # (scripts/release-direct.sh). Updates stay off until both are set.
         SPARKLE_FEED_URL: https://raw.githubusercontent.com/chiranjeebhub/Shotwright/main/appcast.xml
-        SPARKLE_PUBLIC_KEY: ""
+        SPARKLE_PUBLIC_KEY: WcMaK8VOTpKw9BBdKl6N6HkQ6JJN1O5Oh0QDlN99EfA=
 
   Shotwright-AppStore:
     templates: [App]
