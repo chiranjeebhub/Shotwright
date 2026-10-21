@@ -6,5 +6,13 @@
         <description>Shotwright updates</description>
         <language>en</language>
         <!-- New releases go below this line. -->
+        <item>
+            <title>Version 0.1.0</title>
+            <pubDate>Wed, 21 Oct 2026 00:34:19 +0000</pubDate>
+            <sparkle:version>202610210032</sparkle:version>
+            <sparkle:shortVersionString>0.1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/chiranjeebhub/Shotwright/releases/download/v0.1.0/Shotwright-0.1.0.dmg" type="application/octet-stream" sparkle:edSignature="94Eiu9twCr6ce0FExXw+1FOZe/6tbsu25lAxCGhCnxGRwi3geh1RNRvCQR+UrX2AeQgI7Swopgf766NIbOGkBg==" length="2472965"/>
+        </item>
     </channel>
 </rss>
