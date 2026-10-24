@@ -111,7 +111,7 @@ To build, sign, install to `/Applications` and relaunch in one step:
 scripts/install.sh
 ```
 
-It signs with your Apple Development certificate, or a self-signed "Shotwright Local Signing" certificate it creates once. Prefer this to running an unsigned build: macOS ties the Screen Recording permission to the code signature, and an unsigned build gets a new signature on every rebuild, so macOS would ask again each time.
+It signs with your Developer ID Application certificate (the one releases use, so a local build and an installed release share one permission), else your Apple Development certificate, else a self-signed "Shotwright Local Signing" certificate it creates once. Prefer this to running an unsigned build: macOS ties the Screen Recording permission to the code signature, and an unsigned build gets a new signature on every rebuild, so macOS would ask again each time.
 
 Command-line build:
 

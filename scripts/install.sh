@@ -6,8 +6,10 @@
 # again even though the switch in System Settings is still on. Signing every build with the same
 # certificate keeps the permission across rebuilds.
 #
-# Identity: $SHOTWRIGHT_SIGN_IDENTITY if set, else the first "Apple Development" certificate in
-# the keychain, else a self-signed "Shotwright Local Signing" certificate created on first run.
+# Identity: $SHOTWRIGHT_SIGN_IDENTITY if set, else the "Developer ID Application" certificate (the
+# same one the released DMG uses, so local builds and releases share one permission), else the
+# first "Apple Development" certificate, else a self-signed "Shotwright Local Signing" certificate
+# created on first run.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -22,7 +24,7 @@ find_identity() {
 }
 
 create_local_cert() {
-    echo "No Apple Development certificate found; creating \"$LOCAL_CERT\" in the login keychain."
+    echo "No Developer ID or Apple Development certificate found; creating \"$LOCAL_CERT\" in the login keychain."
     local tmp; tmp=$(mktemp -d)
     cat > "$tmp/cert.cnf" <<CNF
 [req]
@@ -46,6 +48,7 @@ CNF
 }
 
 IDENTITY="${SHOTWRIGHT_SIGN_IDENTITY:-}"
+[ -z "$IDENTITY" ] && IDENTITY=$(find_identity "Developer ID Application")
 [ -z "$IDENTITY" ] && IDENTITY=$(find_identity "Apple Development")
 [ -z "$IDENTITY" ] && IDENTITY=$(find_identity "$LOCAL_CERT")
 if [ -z "$IDENTITY" ]; then
