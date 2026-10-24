@@ -180,6 +180,14 @@ SHOTWRIGHT_TEAM_ID=XXXXXXXXXX scripts/release-appstore.sh --upload   # upload to
 
 Needs the App Store Connect app record for `com.shotwright.app`.
 
+## More free Mac apps by me
+
+| | |
+| --- | --- |
+| [Clipstack](https://github.com/chiranjeebhub/ClipStack) | Clipboard history for your Mac. ⇧⌘V, search, paste. |
+| [NotchDeck](https://github.com/chiranjeebhub/NotchDeck) | Your MacBook notch as a hub for media, files, calendar and local dev servers. |
+| [Sweep](https://github.com/chiranjeebhub/Sweep) | A fast, native Mac cleaner. |
+
 ## License
 
 Shotwright is released under the [MIT License](LICENSE).
