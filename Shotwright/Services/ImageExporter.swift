@@ -33,13 +33,33 @@ enum ImageExporter {
         return "Shotwright \(formatter.string(from: date)).\(format.fileExtension)"
     }
 
-    /// Saves to the configured folder and returns the file's URL.
+    /// Saves to the configured folder and returns the file's URL. A capture that was already
+    /// saved is written back to the same file, so saving twice doesn't make a duplicate.
     @MainActor
     @discardableResult
     static func save(_ capture: Capture) throws -> URL {
-        let url = try SaveFolder.writableURL().appendingPathComponent(filename(for: capture.date))
+        if let savedURL = capture.savedURL, FileManager.default.fileExists(atPath: savedURL.path) {
+            try write(capture, to: savedURL)
+            return savedURL
+        }
+        let url = uniqueURL(in: try SaveFolder.writableURL(), filename: filename(for: capture.date))
         try write(capture, to: url)
         capture.savedURL = url
+        return url
+    }
+
+    /// `filename` in `folder`, numbered ("… 2.png") if a file by that name exists. File names
+    /// only go down to the second, so two captures in the same second would otherwise collide.
+    static func uniqueURL(in folder: URL, filename: String) -> URL {
+        let first = folder.appendingPathComponent(filename)
+        let stem = first.deletingPathExtension().lastPathComponent
+        let ext = first.pathExtension
+        var url = first
+        var counter = 2
+        while FileManager.default.fileExists(atPath: url.path) {
+            url = folder.appendingPathComponent("\(stem) \(counter)").appendingPathExtension(ext)
+            counter += 1
+        }
         return url
     }
 

@@ -25,6 +25,7 @@ enum Toast {
         panel.backgroundColor = .clear
         panel.level = .statusBar
         panel.ignoresMouseEvents = true
+        panel.hidesOnDeactivate = false
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
 
         let screen = NSScreen.underMouse.visibleFrame

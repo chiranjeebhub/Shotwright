@@ -164,6 +164,8 @@ final class EditorModel: ObservableObject {
     /// The screenshot with every annotation burned in, at full resolution.
     func renderedImage() -> CGImage? {
         commitText()
+        // Nothing to burn in: keep the original pixels (and colour space) as they are.
+        if annotations.isEmpty { return image }
         let size = canvasSize
         let image = image, pixelated = pixelated, annotations = annotations, scale = scale
         let renderer = ImageRenderer(content:
@@ -178,7 +180,12 @@ final class EditorModel: ObservableObject {
 
     /// Writes the edits back to the capture so Quick Access, history and saving all see them.
     func applyToCapture() -> Bool {
-        guard let rendered = renderedImage() else { return false }
+        guard let rendered = renderedImage() else {
+            CaptureCoordinator.shared.present(CocoaError(.fileWriteUnknown, userInfo: [
+                NSLocalizedDescriptionKey: "Couldn't render the annotated image.",
+            ]))
+            return false
+        }
         capture.image = rendered
         return true
     }

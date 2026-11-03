@@ -34,6 +34,8 @@ final class Recording: ObservableObject, Identifiable {
     let thumbnail: CGImage?
     @Published private(set) var url: URL
     private(set) var savedURL: URL?
+    /// Set once the file is on the pasteboard, which points at it by path.
+    private var isCopied = false
 
     init(url: URL, date: Date, format: RecordingFormat, duration: TimeInterval, thumbnail: CGImage?) {
         self.url = url
@@ -68,7 +70,12 @@ final class Recording: ObservableObject, Identifiable {
             destination = folder.appendingPathComponent("\(stem) \(counter).\(format.fileExtension)")
             counter += 1
         }
-        try FileManager.default.moveItem(at: url, to: destination)
+        // A copied recording keeps its temp file so a later paste still finds it.
+        if isCopied {
+            try FileManager.default.copyItem(at: url, to: destination)
+        } else {
+            try FileManager.default.moveItem(at: url, to: destination)
+        }
         url = destination
         savedURL = destination
         return destination
@@ -80,14 +87,16 @@ final class Recording: ObservableObject, Identifiable {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
         pasteboard.writeObjects([url as NSURL])
+        isCopied = true
         if format == .gif, let data = try? Data(contentsOf: url) {
             pasteboard.setData(data, forType: NSPasteboard.PasteboardType(UTType.gif.identifier))
         }
     }
 
-    /// Deletes the file unless it was saved.
+    /// Deletes the file unless it was saved or is on the pasteboard (e.g. "Copy to clipboard"
+    /// is on, and the card was closed before pasting).
     func discard() {
-        guard savedURL == nil else { return }
+        guard savedURL == nil, !isCopied else { return }
         try? FileManager.default.removeItem(at: url.deletingLastPathComponent())
     }
 }

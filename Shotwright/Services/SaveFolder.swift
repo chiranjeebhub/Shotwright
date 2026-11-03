@@ -29,7 +29,11 @@ enum SaveFolder {
     /// throws `CocoaError(.userCancelled)` if the user cancels.
     static func writableURL() throws -> URL {
         restoreAccess()
-        if accessedURL != nil || !isSandboxed { return url }
+        if accessedURL != nil || !isSandboxed {
+            // The folder may have been deleted or renamed since it was picked.
+            try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
+            return url
+        }
         guard choose(message: "Choose where Shotwright saves your screenshots and recordings. You can change this later in Settings.") else {
             throw CocoaError(.userCancelled)
         }

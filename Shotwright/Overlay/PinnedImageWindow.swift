@@ -20,6 +20,9 @@ final class PinnedImageWindow: NSPanel {
         let origin = NSPoint(x: screen.midX - size.width / 2, y: screen.midY - size.height / 2)
         super.init(contentRect: NSRect(origin: origin, size: size), styleMask: [.borderless, .nonactivatingPanel, .resizable], backing: .buffered, defer: false)
         level = .floating
+        // NSPanel hides when its app deactivates by default, which made the pin vanish
+        // as soon as you clicked into another app.
+        hidesOnDeactivate = false
         isMovableByWindowBackground = true
         hasShadow = true
         isOpaque = false

@@ -34,7 +34,10 @@ struct EditorView: View {
             }
             .onAppear {
                 let size = model.canvasSize
-                let fit = min(1, (geometry.size.width - 48) / size.width, (geometry.size.height - 48) / size.height)
+                let widthFit = (geometry.size.width - 48) / size.width
+                let heightFit = (geometry.size.height - 48) / size.height
+                // Tall scrolling captures would shrink to a sliver if fitted whole; fit their width and scroll.
+                let fit = size.height > size.width * 3 ? min(1, widthFit) : min(1, widthFit, heightFit)
                 model.zoom = max(0.1, fit)
             }
         }
@@ -266,8 +269,9 @@ private struct AnnotationCanvas: View {
                     }
             )
             .onContinuousHover { phase in
-                if case .active = phase {
-                    (model.tool == .select ? NSCursor.arrow : NSCursor.crosshair).set()
+                switch phase {
+                case .active: (model.tool == .select ? NSCursor.arrow : NSCursor.crosshair).set()
+                case .ended: NSCursor.arrow.set()
                 }
             }
 
