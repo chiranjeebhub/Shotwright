@@ -17,10 +17,10 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 APP_NAME=Shotwright
 SCHEME=Shotwright
-WORK="build/Direct"
+WORK="build.noindex/Direct"
 DIST="dist"
 ARCHIVE="$WORK/$APP_NAME.xcarchive"
-PACKAGES="build/SourcePackages"
+PACKAGES="build.noindex/SourcePackages"
 RELEASES_URL="https://github.com/chiranjeebhub/Shotwright/releases"
 NOTARY_PROFILE="${SHOTWRIGHT_NOTARY_PROFILE:-shotwright-notary}"
 

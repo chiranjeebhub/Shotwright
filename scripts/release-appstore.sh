@@ -2,7 +2,7 @@
 # Archives Shotwright for the Mac App Store and exports a signed .pkg, or uploads it to
 # App Store Connect.
 #
-#   SHOTWRIGHT_TEAM_ID=ABCDE12345 scripts/release-appstore.sh           # export build/AppStore/Shotwright.pkg
+#   SHOTWRIGHT_TEAM_ID=ABCDE12345 scripts/release-appstore.sh           # export build.noindex/AppStore/Shotwright.pkg
 #   SHOTWRIGHT_TEAM_ID=ABCDE12345 scripts/release-appstore.sh --upload  # upload to App Store Connect
 #
 # Needs: a paid Apple Developer Program team, your Apple ID added in Xcode > Settings > Accounts,
@@ -16,7 +16,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 APP_NAME=Shotwright
 SCHEME=Shotwright-AppStore
-OUT="build/AppStore"
+OUT="build.noindex/AppStore"
 ARCHIVE="$OUT/$APP_NAME.xcarchive"
 DESTINATION=export
 [ "${1:-}" = "--upload" ] && DESTINATION=upload

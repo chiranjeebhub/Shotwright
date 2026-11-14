@@ -174,7 +174,7 @@ One-time setup: a Developer ID Application certificate (Xcode > Settings > Accou
 ### Mac App Store
 
 ```sh
-SHOTWRIGHT_TEAM_ID=XXXXXXXXXX scripts/release-appstore.sh            # export build/AppStore/Shotwright.pkg
+SHOTWRIGHT_TEAM_ID=XXXXXXXXXX scripts/release-appstore.sh            # export build.noindex/AppStore/Shotwright.pkg
 SHOTWRIGHT_TEAM_ID=XXXXXXXXXX scripts/release-appstore.sh --upload   # upload to App Store Connect
 ```
 

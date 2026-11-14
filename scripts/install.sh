@@ -16,7 +16,7 @@ cd "$(dirname "$0")/.."
 APP_NAME=Shotwright
 LOCAL_CERT="Shotwright Local Signing"
 DEST="/Applications/$APP_NAME.app"
-BUILD_DIR="build"
+BUILD_DIR="build.noindex"   # .noindex keeps build copies of the app out of Spotlight
 
 find_identity() {
     security find-identity -p codesigning 2>/dev/null \

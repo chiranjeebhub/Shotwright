@@ -1,5 +1,6 @@
 *.xcodeproj/
 build/
+build.noindex/
 DerivedData/
 .DS_Store
 xcuserdata/
