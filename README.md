@@ -85,7 +85,7 @@ Shotwright needs **macOS 14 Sonoma or later**.
 
 Shotwright asks for one permission:
 
-- **Screen & System Audio Recording**, which macOS requires for any app that captures the screen. On first launch macOS shows its prompt; turn Shotwright on in *System Settings › Privacy & Security › Screen & System Audio Recording*, then quit and reopen Shotwright.
+- **Screen & System Audio Recording**, which macOS requires for any app that captures the screen. On first launch macOS shows its prompt; turn Shotwright on in *System Settings › Privacy & Security › Screen & System Audio Recording*, in the top list of that page (the lower "System Audio Recording Only" list does not allow screen capture), then quit and reopen Shotwright.
 
 It does not need Accessibility access: the global shortcuts use the Carbon hot key API, which works without it. Nothing leaves your Mac; text recognition runs on-device.
 

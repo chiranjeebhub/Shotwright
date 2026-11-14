@@ -25,10 +25,10 @@ enum PermissionManager {
         if canResetPermission {
             // A switch that shows on but doesn't work belongs to an earlier copy of Shotwright
             // signed differently (another build or install). Resetting drops that stale entry.
-            alert.informativeText = "Turn on Shotwright in System Settings › Privacy & Security › Screen & System Audio Recording, then quit and reopen Shotwright.\n\nIf it is already on, click Reset Permission, turn Shotwright on again when asked, and reopen Shotwright."
+            alert.informativeText = "\(listHint)\n\nIf it is already on in that top list, click Reset Permission, turn Shotwright on again when asked, and reopen Shotwright."
             alert.addButton(withTitle: "Reset Permission")
         } else {
-            alert.informativeText = "Turn on Shotwright in System Settings › Privacy & Security › Screen & System Audio Recording, then quit and reopen Shotwright.\n\nIf it is already on, remove Shotwright from that list with the − button, add it again, and reopen Shotwright."
+            alert.informativeText = "\(listHint)\n\nIf it is already on in that top list, remove Shotwright from it with the − button, add it again with +, and reopen Shotwright."
         }
         alert.addButton(withTitle: "Cancel")
         NSApp.activate(ignoringOtherApps: true)
@@ -44,6 +44,10 @@ enum PermissionManager {
         }
         return false
     }
+
+    /// macOS 15 and later split this settings page into two lists. A switch under the lower
+    /// "System Audio Recording Only" list grants audio alone, so Shotwright still can't see the screen.
+    private static let listHint = "Open System Settings › Privacy & Security › Screen & System Audio Recording and turn on Shotwright in the top list, \"Screen & System Audio Recording\" (use + under that list if Shotwright isn't there). The \"System Audio Recording Only\" list below it doesn't allow screen capture. Then quit and reopen Shotwright."
 
     /// The sandboxed App Store build can't run tccutil.
     private static var canResetPermission: Bool {
