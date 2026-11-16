@@ -55,6 +55,14 @@ struct MenuBarView: View {
                 closeMenu()
                 SaveFolder.reveal()
             }
+            // Only the direct-download build updates itself; the App Store build has no Sparkle.
+            if Updater.isAvailable {
+                MenuRow("Check for Updates…", symbol: "arrow.triangle.2.circlepath") {
+                    closeMenu()
+                    NSApp.activate(ignoringOtherApps: true)
+                    Updater.checkForUpdates()
+                }
+            }
             MenuRow("Settings…", symbol: "gearshape", shortcut: "⌘,") {
                 closeMenu()
                 NSApp.activate(ignoringOtherApps: true)
